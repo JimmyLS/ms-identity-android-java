@@ -61,20 +61,20 @@ public class B2CConfiguration {
      * See https://docs.microsoft.com/en-us/azure/active-directory-b2c/active-directory-b2c-reference-policies for more info.
      */
     public final static String[] Policies = {
-            "b2c_1_susi",
-            "b2c_1_edit_profile",
-            "b2c_1_reset"
+            "B2C_1_signupsignin1",
+            "B2C_1_profileediting1",
+            "B2C_1_reset"
     };
 
     /**
      * Name of your B2C tenant hostname.
      */
-    final static String azureAdB2CHostName = "fabrikamb2c.b2clogin.com";
+    final static String azureAdB2CHostName = "jimmyb2c.b2clogin.com";
 
     /**
      * Name of your B2C tenant.
      */
-    final static String tenantName = "fabrikamb2c.onmicrosoft.com";
+    final static String tenantName = "jimmyb2c.onmicrosoft.com";
 
     /**
      * Returns an authority for the given policy name.
@@ -91,6 +91,6 @@ public class B2CConfiguration {
      */
     public static List<String> getScopes() {
         return Arrays.asList(
-                "https://fabrikamb2c.onmicrosoft.com/helloapi/demo.read");
+                "https://jimmyb2c.onmicrosoft.com/tasks-api/tasks.read");
     }
 }

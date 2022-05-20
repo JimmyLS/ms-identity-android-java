@@ -1,21 +1,21 @@
 {
-  "client_id" : "e5737214-6372-472c-a85a-68e8fbe6cf3c",
-  "redirect_uri" : "msauth://com.azuresamples.msalandroidapp/1wIqXSqBj7w%2Bh11ZifsnqwgyKrY%3D",
+  "client_id" : "35550511-2f93-4be9-af9c-19856f594d18",
+  "redirect_uri" : "msauth://com.tech1108.jimmytest/M61nf%2BaC69kCXmFY1ejcX83rDNc%3D",
   "account_mode" : "MULTIPLE",
   "broker_redirect_uri_registered": false,
   "authorities": [
     {
       "type": "B2C",
-      "authority_url": "https://fabrikamb2c.b2clogin.com/tfp/fabrikamb2c.onmicrosoft.com/b2c_1_susi/",
+      "authority_url": "https://jimmyb2c.b2clogin.com/tfp/jimmyb2c.onmicrosoft.com/B2C_1_signupsignin1/",
       "default": true
     },
     {
       "type": "B2C",
-      "authority_url": "https://fabrikamb2c.b2clogin.com/tfp/fabrikamb2c.onmicrosoft.com/b2c_1_edit_profile/"
+      "authority_url": "https://jimmyb2c.b2clogin.com/tfp/jimmyb2c.onmicrosoft.com/B2C_1_profileediting1/"
     },
     {
       "type": "B2C",
-      "authority_url": "https://fabrikamb2c.b2clogin.com/tfp/fabrikamb2c.onmicrosoft.com/b2c_1_reset/"
+      "authority_url": "https://jimmyb2c.b2clogin.com/tfp/jimmymb2c.onmicrosoft.com/B2C_1_reset/"
     }
   ]
 }

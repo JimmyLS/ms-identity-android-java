@@ -42,8 +42,10 @@ import com.android.volley.VolleyError;
 import com.microsoft.identity.client.AuthenticationCallback;
 import com.microsoft.identity.client.IAccount;
 import com.microsoft.identity.client.IAuthenticationResult;
+import com.microsoft.identity.client.ILoggerCallback;
 import com.microsoft.identity.client.IPublicClientApplication;
 import com.microsoft.identity.client.ISingleAccountPublicClientApplication;
+import com.microsoft.identity.client.Logger;
 import com.microsoft.identity.client.PublicClientApplication;
 import com.microsoft.identity.client.SilentAuthenticationCallback;
 import com.microsoft.identity.client.exception.MsalClientException;
@@ -80,6 +82,7 @@ public class SingleAccountModeFragment extends Fragment {
     private ISingleAccountPublicClientApplication mSingleAccountApp;
     private IAccount mAccount;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
@@ -87,6 +90,7 @@ public class SingleAccountModeFragment extends Fragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_single_account_mode, container, false);
         initializeUI(view);
+
 
         // Creates a PublicClientApplication object with res/raw/auth_config_single_account.json
         PublicClientApplication.createSingleAccountPublicClientApplication(getContext(),

@@ -25,14 +25,9 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
-                <!--
-                    Add in your scheme/host from registered redirect URI
-                    note that the leading "/" is required for android:path
-                -->
                 <data
-                    android:host="com.azuresamples.msalandroidapp"
-                    android:path="/1wIqXSqBj7w+h11ZifsnqwgyKrY="
+                    android:host="com.tech1108.jimmytest"
+                    android:path="/M61nf+aC69kCXmFY1ejcX83rDNc="
                     android:scheme="msauth" />
             </intent-filter>
         </activity>

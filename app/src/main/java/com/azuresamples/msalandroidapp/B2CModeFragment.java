@@ -41,8 +41,10 @@ import com.microsoft.identity.client.AcquireTokenParameters;
 import com.microsoft.identity.client.AuthenticationCallback;
 import com.microsoft.identity.client.IAccount;
 import com.microsoft.identity.client.IAuthenticationResult;
+import com.microsoft.identity.client.ILoggerCallback;
 import com.microsoft.identity.client.IMultipleAccountPublicClientApplication;
 import com.microsoft.identity.client.IPublicClientApplication;
+import com.microsoft.identity.client.Logger;
 import com.microsoft.identity.client.Prompt;
 import com.microsoft.identity.client.PublicClientApplication;
 import com.microsoft.identity.client.SilentAuthenticationCallback;
@@ -68,6 +70,8 @@ public class B2CModeFragment extends Fragment {
     TextView logTextView;
     Spinner policyListSpinner;
     Spinner b2cUserList;
+    private StringBuilder mLogs;
+    private static final String TAG1 = "Token_Result";
 
     private List<B2CUser> users;
 
@@ -80,6 +84,19 @@ public class B2CModeFragment extends Fragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_b2c_mode, container, false);
         initializeUI(view);
+
+        // MSAL Android Logging
+        mLogs = new StringBuilder();
+        Logger.getInstance().setExternalLogger(new ILoggerCallback() {
+            @Override
+            public void log(String tag, Logger.LogLevel logLevel, String message, boolean containsPII) {
+                mLogs.append(message).append('\n');
+            }
+        });
+
+        Logger.getInstance().setLogLevel(Logger.LogLevel.VERBOSE);
+        Logger.getInstance().setEnablePII(true);
+        Logger.getInstance().setEnableLogcatLog(true);
 
         // Creates a PublicClientApplication object with res/raw/auth_config_single_account.json
         PublicClientApplication.createMultipleAccountPublicClientApplication(getContext(),
@@ -222,7 +239,7 @@ public class B2CModeFragment extends Fragment {
 
             @Override
             public void onSuccess(IAuthenticationResult authenticationResult) {
-                Log.d(TAG, "Successfully authenticated");
+                Log.d(TAG, "Successfully authenticated silently");
 
                 /* Successfully got a token. */
                 displayResult(authenticationResult);
@@ -240,6 +257,16 @@ public class B2CModeFragment extends Fragment {
                     /* Exception when communicating with the STS, likely config issue */
                 } else if (exception instanceof MsalUiRequiredException) {
                     /* Tokens expired or no session, retry with interactive */
+                    AcquireTokenParameters parameters = new AcquireTokenParameters.Builder()
+                            .startAuthorizationFromActivity(getActivity())
+                            .fromAuthority(B2CConfiguration.getAuthorityFromPolicyName(policyListSpinner.getSelectedItem().toString()))
+                            .withScopes(B2CConfiguration.getScopes())
+                            .withPrompt(Prompt.WHEN_REQUIRED)
+                            .withCallback(getAuthInteractiveCallback())
+                            .build();
+
+                    b2cApp.acquireToken(parameters);
+
                 }
             }
         };
@@ -313,6 +340,7 @@ public class B2CModeFragment extends Fragment {
                         "Tenant ID : " + result.getTenantId() + "\n";
 
         logTextView.setText(output);
+        Log.i(TAG1, output);
     }
 
     /**
